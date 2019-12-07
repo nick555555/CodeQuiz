@@ -45,16 +45,22 @@ function questionSwitch(){
     donePage.style.display = "inline";
     finalScore.textContent = "Final Score: " + secondsLeft;
     clearInterval(timeInterval);
+    timerCounter.textContent = "Time: " + secondsLeft;
     return;
   }
   var questionTitle = questions[currentQuestion].title;
   var temp = document.createElement('h2');
   temp.textContent = questionTitle;
+  temp.style.textAlign = "center";
   questionDisplay.appendChild(temp);
   for (let j = 0; j < questions[currentQuestion].choices.length; j++) {
     var questionOptions = questions[currentQuestion].choices[j];
     var tempNew = document.createElement('button');
     tempNew.textContent = questionOptions;
+    tempNew.style.backgroundColor = "blue";
+    tempNew.style.color = "white";
+    tempNew.style.borderColor = "blue";
+    tempNew.style.margin = "1vw";
     questionsList.appendChild(tempNew);
     tempNew.onclick = compareAnswer;
   }
@@ -63,11 +69,11 @@ function questionSwitch(){
 function compareAnswer() {
 //   console.log("it worked" + this.textContent + questions[currentQuestion].answer);
   if (this.textContent===questions[currentQuestion].answer) {
-      console.log("correct");
       rightWrongBox.textContent = "Correct";
+      rightWrongBox.style.color = "green";
   } else {
-      console.log("incorrect");
       rightWrongBox.textContent = "Incorrect";
+      rightWrongBox.style.color = "red";
       secondsLeft = secondsLeft - 15;
   }
   currentQuestion++; 
@@ -87,6 +93,7 @@ function highScoreListDisplay() {
 
 startButton.addEventListener("click", questionSwitch);
 highscoreLink.addEventListener("click", function(){
+    clearInterval(timeInterval);
     highscorePage.style.display = "inline";
     startingPage.style.display = "none";
     donePage.style.display = "none";
@@ -102,6 +109,7 @@ submitInitials.addEventListener("click", function() {
     highScoreListDisplay();
 })
 homeButton.addEventListener("click", function() {
+    rightWrongBox.textContent = '';
     highscorePage.style.display = "none";
     startingPage.style.display = "inline";
     donePage.style.display = "none";
